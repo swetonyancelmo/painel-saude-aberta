@@ -1,0 +1,26 @@
+# Ambiente
+.env
+.venv/
+venv/
+__pycache__/
+*.pyc
+.pytest_cache/
+.ruff_cache/
+.ipynb_checkpoints/
+
+# Dados (nunca versionar)
+etl/data/raw/*
+etl/data/processed/*
+!etl/data/raw/.gitkeep
+!etl/data/processed/.gitkeep
+
+# Node
+node_modules/
+.next/
+dist/
+coverage/
+
+# SO / editores
+.DS_Store
+.idea/
+.vscode/
