@@ -1,0 +1,16 @@
+[project]
+name = "painel-etl"
+version = "0.1.0"
+requires-python = ">=3.12"
+dependencies = [
+    "pandas>=3.1.0",
+    "pyarrow>=26.0.1",
+]
+
+[dependency-groups]
+dev = [
+    "ipykernel>=7.4.0",
+    "jupyter>=1.1.1",
+    "nbconvert>=7.17.2",
+    "ruff>=0.17.3",
+]
