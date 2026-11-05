@@ -49,13 +49,15 @@ painel-saude-aberta/
 ├── README.md               ← apresentação para humanos (recrutadores)
 ├── docker-compose.yml      ← PostgreSQL local
 ├── .env.example            ← variáveis de ambiente (copiar para .env)
-├── etl/                    ← pipeline em Python
-│   ├── src/
-│   │   ├── extract/        ← download dos arquivos do OpenDataSUS
-│   │   ├── transform/      ← limpeza, filtro por UF, agregação
+├── etl/                    ← pipeline em Python (projeto uv, pyproject.toml)
+│   ├── src/painel_etl/     ← pacote Python (import painel_etl....)
+│   │   ├── extract/        ← download (OpenDataSUS, API do IBGE)
+│   │   ├── transform/      ← limpeza, filtro por UF, agregação, conversão de códigos
 │   │   ├── load/           ← gravação idempotente no PostgreSQL
-│   │   └── quality/        ← checagens de qualidade de dados
-│   ├── tests/              ← pytest (unitários + qualidade)
+│   │   ├── quality/        ← checagens de qualidade de dados
+│   │   └── carga_*.py      ← orquestradores de cada passo (python -m painel_etl.carga_...)
+│   ├── tests/              ← pytest (unitários + qualidade + integração com o banco)
+│   │   └── fixtures/       ← dados pequenos e estáticos para os testes
 │   ├── notebooks/          ← exploração inicial (não é código de produção)
 │   ├── sql/                ← DDL / migrations do schema
 │   └── data/
@@ -118,7 +120,10 @@ Gerenciador Node: `pnpm` (preferido) ou `npm`. Escolha um e mantenha.
 
 ### Modelo de dados alvo (dimensional)
 
-- `municipio` (dimensão): código IBGE, nome, UF.
+- `municipio` (dimensão): `id` = código IBGE de 7 dígitos, `codigo_ibge6` (DATASUS,
+  usado no join com os microdados), nome, UF. Ver ADR-0002. Converter 6 ↔ 7 com
+  `painel_etl.transform.codigo_municipio` (nunca só pelo algoritmo do dígito
+  verificador: há exceções, como Quixaba-PE).
 - `vacina` (dimensão): id, nome/descrição normalizada.
 - `doses_mensais` (fato): municipio_id, vacina_id, ano_mes, total_doses.
   Chave única: (municipio_id, vacina_id, ano_mes).
@@ -152,9 +157,11 @@ Mudanças nesse modelo exigem um novo ADR.
 cp .env.example .env
 docker compose up -d          # sobe o PostgreSQL
 # ETL (ambiente Python 3.12 gerenciado com uv, em etl/)
-cd etl && uv sync             # cria .venv com pandas, pyarrow, jupyter, ruff
+cd etl && uv sync             # cria .venv e instala o pacote painel_etl
 uv run jupyter lab notebooks/ # exploração (01_exploracao.ipynb)
 uv run ruff check . && uv run ruff format --check .
+uv run pytest                 # testes marcados `integracao` são pulados sem o banco
+uv run python -m painel_etl.carga_municipios --uf PE   # dimensão municipio (API do IBGE)
 # Dados brutos: etl/data/raw/vacinacao_jan_2024.csv (latin-1, separador ';')
 # ETL:  (a definir na Fase 1)  ex.: python -m etl.run --mes 2024-01 --uf PE
 # API:  cd api && pnpm start:dev
