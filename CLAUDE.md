@@ -99,7 +99,8 @@ Gerenciador Node: `pnpm` (preferido) ou `npm`. Escolha um e mantenha.
 1. **Nunca grave microdados individuais no banco.** O ETL lê os microdados,
    agrega por município/vacina/mês e grava **apenas contagens**. Isso reduz o
    volume e é a decisão de privacidade do projeto (ver ADR-001).
-2. **Arquivos são grandes** (~1,4 GB por mês nacional). Leia em *chunks* ou com
+2. **Arquivos são grandes** (zip de 1–4 GB por mês nacional; o CSV dentro tem ~7 GB
+   e ~12 milhões de linhas, latin-1, separador `;`). Leia em *chunks* ou com
    leitura colunar, selecionando só as colunas necessárias. Filtre a UF o mais
    cedo possível.
 3. **Município é identificado pelo código IBGE.** Atenção: o DATASUS costuma
@@ -162,7 +163,7 @@ uv run jupyter lab notebooks/ # exploração (01_exploracao.ipynb)
 uv run ruff check . && uv run ruff format --check .
 uv run pytest                 # testes marcados `integracao` são pulados sem o banco
 uv run python -m painel_etl.carga_municipios --uf PE   # dimensão municipio (API do IBGE)
-# Dados brutos: etl/data/raw/vacinacao_jan_2024.csv (latin-1, separador ';')
+uv run python -m painel_etl.extract.vacinacao --ano 2024 --mes 1   # baixa para data/raw/ (cache; --forcar)
 # ETL:  (a definir na Fase 1)  ex.: python -m etl.run --mes 2024-01 --uf PE
 # API:  cd api && pnpm start:dev
 # Web:  cd web && pnpm dev
@@ -203,8 +204,9 @@ Trabalhe **uma fase por vez** e não pule para a próxima sem a anterior funcion
 ## 9. Fontes de dados
 
 - OpenDataSUS: https://opendatasus.saude.gov.br/ (catálogo `dadosabertos.saude.gov.br`)
-- Vacinação — registros individuais anonimizados (CSV), 2020 em diante.
-- Códigos de municípios: IBGE (tabela de municípios / API de localidades).
-- Biblioteca de apoio opcional: PySUS (`pysus`) para descoberta e download.
+- Vacinação — registros individuais anonimizados (CSV), 2020 em diante. Download direto
+  de `https://s3.sa-east-1.amazonaws.com/ckan.saude.gov.br/PNI/csv/vacinacao_<mes>_<ano>_csv.zip`
+  (ver ADR-0003; o PySUS **não** é usado: conflita com o pandas 3).
+- Códigos de municípios: IBGE (API de localidades).
 
 Respeite os termos de uso e cite as fontes no README e no rodapé do dashboard.

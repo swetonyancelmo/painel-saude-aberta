@@ -72,7 +72,6 @@ Os comandos do ETL, da API e do dashboard serão adicionados aqui conforme cada 
 
 - [OpenDataSUS](https://opendatasus.saude.gov.br/) — Ministério da Saúde. Registros de vacinação individuais e anonimizados (SI-PNI).
 - [IBGE](https://www.ibge.gov.br/) — códigos e nomes de municípios.
-- [PySUS](https://github.com/AlertaDengue/PySUS) — biblioteca de apoio opcional para descoberta e download.
 
 Os dados são utilizados conforme os termos de uso do OpenDataSUS. Os créditos também constarão no rodapé do dashboard.
 
