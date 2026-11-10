@@ -125,9 +125,14 @@ Gerenciador Node: `pnpm` (preferido) ou `npm`. Escolha um e mantenha.
   usado no join com os microdados), nome, UF. Ver ADR-0002. Converter 6 ↔ 7 com
   `painel_etl.transform.codigo_municipio` (nunca só pelo algoritmo do dígito
   verificador: há exceções, como Quixaba-PE).
-- `vacina` (dimensão): id, nome/descrição normalizada.
-- `doses_mensais` (fato): municipio_id, vacina_id, ano_mes, total_doses.
-  Chave única: (municipio_id, vacina_id, ano_mes).
+- `vacina` (dimensão): `id` = `co_vacina` do SI-PNI, sigla (`sg_imunobiologico`),
+  nome normalizado (`ds_nome` em NFC, espaços colapsados, 1ª letra maiúscula,
+  acentos mantidos).
+- `doses_mensais` (fato): municipio_id, vacina_id, ano_mes (1º dia do mês), total_doses.
+  Chave única: (municipio_id, vacina_id, ano_mes). O município é o do
+  **estabelecimento** (onde a dose foi aplicada); registros com `st_documento` ≠
+  `final` ou com `dt_deletado_rnds` preenchido são descartados. Ver
+  `painel_etl.transform.vacinacao`.
 - `etl_execucao` (controle): id, período, início, fim, status, linhas lidas,
   linhas gravadas, mensagem de erro.
 
