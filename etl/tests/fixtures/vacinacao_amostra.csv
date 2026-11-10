@@ -1,0 +1,21 @@
+co_documento;co_paciente;sg_uf_paciente;co_municipio_estabelecimento;no_municipio_estabelecimento;sg_uf_estabelecimento;co_vacina;sg_imunobiologico;dt_vacina;st_documento;ds_nome;dt_deletado_rnds
+d01;p01;PE;261160;RECIFE;PE;103;COVID-19 PFIZER - BI;2024-01-05;final;vacina covid-19 bivalente;
+d02;p02;PE;261160;RECIFE;PE;103;COVID-19 PFIZER - BI;2024-01-20;final;vacina covid-19 bivalente;
+d03;p03;PE;261160;RECIFE;PE;103;COVID-19 PFIZER - BI;2024-01-31;final;vacina covid-19 bivalente;
+d04;p04;PE;261160;RECIFE;PE;9;HB;2024-01-10;final;vacina hepatite B (recombinante);
+d05;p05;PE;261160;RECIFE;PE;9;HB;2024-01-11;final;  vacina hepatite B  (recombinante) ;
+d06;p06;PE;261153;QUIXABA;PE;14;VFA;2024-01-02;final;vacina febre amarela (atenuada);
+d07;p07;PE;261153;QUIXABA;PE;14;VFA;2024-01-03;final;vacina febre amarela (atenuada);
+d08;p08;PE;260545;FERNANDO DE NORONHA;PE;24;SCR;2024-01-15;final;vacina sarampo, caxumba, rubéola (atenuada);
+d09;p09;RN;260545;FERNANDO DE NORONHA;PE;24;SCR;2024-01-16;final;vacina sarampo, caxumba, rubéola (atenuada);
+d10;p10;PE;261160;RECIFE;PE;103;COVID-19 PFIZER - BI;2024-01-06;final;vacina covid-19 bivalente;2024-02-01
+d11;p11;PE;261160;RECIFE;PE;103;COVID-19 PFIZER - BI;2024-01-07;entered-in-error;vacina covid-19 bivalente;
+d12;p12;PE;355030;SAO PAULO;SP;103;COVID-19 PFIZER - BI;2024-01-08;final;vacina covid-19 bivalente;
+d13;p13;SP;355030;SAO PAULO;SP;9;HB;2024-01-09;final;vacina hepatite B (recombinante);
+d14;p14;PB;250750;JOAO PESSOA;PB;14;VFA;2024-01-12;final;vacina febre amarela (atenuada);
+d15;p15;BA;261160;RECIFE;PE;9;HB;2024-01-13;final;vacina hepatite B (recombinante);
+d16;p16;PE;260410;CARUARU;PE;103;COVID-19 PFIZER - BI;2024-01-08;final;vacina covid-19 bivalente;
+d17;p17;PE;260410;CARUARU;PE;42;Penta;2024-01-09;final;vacina adsorvida difteria, tétano, pertussis, hepatite B (recombinante) e Haemophilus influenzae B (conjugada);
+d18;p18;PE;260410;CARUARU;PE;42;Penta;2024-01-09;final;vacina adsorvida difteria, tétano, pertussis, hepatite B (recombinante) e Haemophilus influenzae B (conjugada);
+d19;p19;;260410;CARUARU;PE;42;Penta;2024-01-25;final;vacina adsorvida difteria, tétano, pertussis, hepatite B (recombinante) e Haemophilus influenzae B (conjugada);
+d20;p20;PE;261110;PETROLINA;PE;99;COV19-RNAm-PED;2024-01-30;final;vacina covid-19;
